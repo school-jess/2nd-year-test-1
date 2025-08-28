@@ -51,17 +51,33 @@ class StudentSinglyNode
 class StudentSinglyLikedList
 {
     private StudentSinglyNode? _head;
+    private HashSet<int> _idIndices;
+
+    public StudentSinglyLikedList()
+    {
+        _idIndices = new HashSet<int>();
+    }
 
     public void Append(Student data)
     {
         if (_head == null)
         {
             _head = new StudentSinglyNode(data);
+            _idIndices.Add(data.Id);
         }
         else
         {
             StudentSinglyNode curNode = _head;
-            while (curNode.Next != null) curNode = curNode.Next;
+            if (_idIndices.Contains(data.Id))
+            {
+                Console.WriteLine($"student with id = {data.Id} already in LL");
+                return;
+            }
+            while (curNode.Next != null)
+            {
+                _idIndices.Add(data.Id);
+                curNode = curNode.Next;
+            }
             curNode.Append(data);
         }
     }
