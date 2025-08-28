@@ -187,6 +187,7 @@ class Program
             switch (command)
             {
                 case "add":
+                    Console.WriteLine("Appending to student LL:");
                     bool idConvErr = false;
                     int id = 0;
                     while (!idConvErr)
@@ -217,11 +218,23 @@ class Program
 
                     bool ageConvErr = false;
                     int age = 0;
-                    string? ageStr = null;
-                    while (ageStr == null)
+                    while (!ageConvErr)
                     {
-                        Console.Write("Age: ");
-                        ageStr = Console.ReadLine();
+                        string? ageStr = null;
+                        while (ageStr == null)
+                        {
+                            Console.Write("Age: ");
+                            ageStr = Console.ReadLine();
+                        }
+
+                        try
+                        {
+                            age = Convert.ToInt32(ageStr);
+                            ageConvErr = true;
+                        }
+                        catch
+                        {
+                        }
                     }
 
                     string? courseStr = null;
@@ -231,16 +244,29 @@ class Program
                         courseStr = Console.ReadLine();
                     }
 
-                    string? yearLevelStr = null;
-                    while (yearLevelStr == null)
+                    bool yearLevelConvErr = false;
+                    int yearLevel = 0;
+                    while (!yearLevelConvErr)
                     {
-                        Console.Write("Year Level: ");
-                        yearLevelStr = Console.ReadLine();
+                        string? yearLevelStr = null;
+                        while (yearLevelStr == null)
+                        {
+                            Console.Write("Year Level: ");
+                            yearLevelStr = Console.ReadLine();
+                        }
+
+                        try
+                        {
+                            yearLevel = Convert.ToInt32(yearLevelStr);
+                            yearLevelConvErr = true;
+                        } catch {}
                     }
 
+                    studentLL.Append(new Student(id, nameStr, age, courseStr, yearLevel));
+                    studentLL.Print();
                     break;
                 case "get":
-                    Console.WriteLine("Print specific student: ");
+                    Console.WriteLine("Print specific student:");
                     string? studentToGetStr = null;
                     while (studentToGetStr == null)
                     {
