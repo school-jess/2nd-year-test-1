@@ -7,7 +7,7 @@ class Program
 {
     static void Main()
     {
-        StudentSinglyLikedList studentLL = new StudentSinglyLikedList();
+        SinglyLikedList<Student> studentLL = new SinglyLikedList<Student>();
         Console.WriteLine("> help");
 
         while (true)
@@ -113,7 +113,7 @@ class Program
                     }
 
                     int studentIdToGet = Convert.ToInt32(studentToGetStr);
-                    StudentSinglyNode? studentLLNode = studentLL.GetId(studentIdToGet);
+                    SinglyNode<Student>? studentLLNode = studentLL.GetId(studentIdToGet);
                     if (studentLLNode == null)
                     {
                         Console.WriteLine($"student with id = {studentIdToGet} wasn't found");

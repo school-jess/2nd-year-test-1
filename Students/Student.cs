@@ -1,6 +1,6 @@
 ﻿namespace Students;
 
-public class Student
+public class Student : IId
 {
     public int Id { get; set; }
     private string _name;
