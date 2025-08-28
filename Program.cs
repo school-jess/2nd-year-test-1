@@ -94,6 +94,7 @@ class StudentSinglyLikedList
                 curNode = curNode.Next;
             }
         }
+
         return null;
     }
 
@@ -101,10 +102,23 @@ class StudentSinglyLikedList
     {
         if (_head != null)
         {
+            StudentSinglyNode? prevNode = null;
             StudentSinglyNode? curNode = _head;
             while (curNode != null)
             {
                 if (curNode.EqId(id))
+                {
+                    if (prevNode == null)
+                    {
+                        _head = curNode.Next;
+                    }
+                    else
+                    {
+                        prevNode.Next = curNode.Next;
+                    }
+                    return true;
+                }
+                prevNode = curNode;
                 curNode = curNode.Next;
             }
         }
@@ -126,6 +140,31 @@ class Program
         {
             studentLL.Append(new Student(ids[i], names[i], ages[i], courses[i], yearLevels[i]));
         }
+        Console.WriteLine("Printing all rows:");
+        studentLL.Print();
+        Console.WriteLine();
+        Console.WriteLine("Print specific student:");
+        int studentIdToGet = 10;
+        StudentSinglyNode? studentLLNode = studentLL.GetId(studentIdToGet);
+        if (studentLLNode == null)
+        {
+            Console.WriteLine($"student with id = {studentIdToGet} wasn't found");
+        } else
+        {
+            studentLLNode.Print();
+        }
+        Console.WriteLine();
+        Console.WriteLine("Deleting specific student:");
+        int studentToDelete = 15;
+        bool stat = studentLL.RemoveId(studentToDelete);
+        if (stat)
+        {
+            Console.WriteLine($"Student with id = {studentToDelete} successfuly deleted");
+        } else
+        {
+            Console.WriteLine($"Couldn't find student with id = {studentToDelete}");
+        }
+        Console.WriteLine("New student LL without the deleted student:");
         studentLL.Print();
     }
 }
