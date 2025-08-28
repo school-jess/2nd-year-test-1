@@ -133,51 +133,12 @@ class Program
 {
     static void Main()
     {
-//        int[] ids = new int[] { 1, 5, 10, 15, 20 };
-//        string[] names = new string[] { "A", "B", "C", "D", "E" };
-//        int[] ages = new int[] { 20, 21, 22, 23, 24 };
-//        string[] courses = new string[] { "IT", "IT", "ME", "ME", "IT" };
-//        int[] yearLevels = new int[] { 1, 1, 3, 4, 2 };
         StudentSinglyLikedList studentLL = new StudentSinglyLikedList();
-//        for (int i = 0; i < ids.Length; i++)
-//        {
-//            studentLL.Append(new Student(ids[i], names[i], ages[i], courses[i], yearLevels[i]));
-//        }
-//
-//        Console.WriteLine("Printing all rows:");
-//        studentLL.Print();
-//        Console.WriteLine();
-//        Console.WriteLine("Print specific student:");
-//        int studentIdToGet = 10;
-//        StudentSinglyNode? studentLLNode = studentLL.GetId(studentIdToGet);
-//        if (studentLLNode == null)
-//        {
-//            Console.WriteLine($"student with id = {studentIdToGet} wasn't found");
-//        }
-//        else
-//        {
-//            studentLLNode.Print();
-//        }
-//
-//        Console.WriteLine();
-//        Console.WriteLine("Deleting specific student:");
-//        int studentToDelete = 15;
-//        bool stat = studentLL.RemoveId(studentToDelete);
-//        if (stat)
-//        {
-//            Console.WriteLine($"Student with id = {studentToDelete} successfuly deleted");
-//        }
-//        else
-//        {
-//            Console.WriteLine($"Couldn't find student with id = {studentToDelete}");
-//        }
-//
-//        Console.WriteLine("New student LL without the deleted student:");
-//        studentLL.Print();
+        Console.WriteLine("> help");
 
-        string? command = null;
         while (true)
         {
+            string? command = null;
             while (command == null)
             {
                 Console.Write("> ");
@@ -259,7 +220,10 @@ class Program
                         {
                             yearLevel = Convert.ToInt32(yearLevelStr);
                             yearLevelConvErr = true;
-                        } catch {}
+                        }
+                        catch
+                        {
+                        }
                     }
 
                     studentLL.Append(new Student(id, nameStr, age, courseStr, yearLevel));
@@ -287,7 +251,7 @@ class Program
 
                     break;
                 case "delete":
-                    Console.WriteLine("Deleting specific student:");
+                    Console.Write("Deleting specific student:");
                     string? studentToDeleteStr = null;
                     while (studentToDeleteStr == null)
                     {
@@ -311,6 +275,18 @@ class Program
                     break;
                 case "exit":
                     goto exited;
+                case "print":
+                    studentLL.Print();
+                    break;
+                case "help":
+                    Console.WriteLine("Commands:");
+                    Console.WriteLine("add");
+                    Console.WriteLine("get");
+                    Console.WriteLine("delete");
+                    Console.WriteLine("exit");
+                    Console.WriteLine("print");
+                    Console.WriteLine("help");
+                    break;
                 default:
                     Console.WriteLine("Unknown command");
                     break;
