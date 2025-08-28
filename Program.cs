@@ -116,12 +116,15 @@ class StudentSinglyLikedList
                     {
                         prevNode.Next = curNode.Next;
                     }
+
                     return true;
                 }
+
                 prevNode = curNode;
                 curNode = curNode.Next;
             }
         }
+
         return false;
     }
 }
@@ -130,41 +133,165 @@ class Program
 {
     static void Main()
     {
-        int[] ids = new int[] { 1, 5, 10, 15, 20 };
-        string[] names = new string[] { "A", "B", "C", "D", "E" };
-        int[] ages = new int[] { 20, 21, 22, 23, 24 };
-        string[] courses = new string[] { "IT", "IT", "ME", "ME", "IT" };
-        int[] yearLevels = new int[] { 1, 1, 3, 4, 2 };
+//        int[] ids = new int[] { 1, 5, 10, 15, 20 };
+//        string[] names = new string[] { "A", "B", "C", "D", "E" };
+//        int[] ages = new int[] { 20, 21, 22, 23, 24 };
+//        string[] courses = new string[] { "IT", "IT", "ME", "ME", "IT" };
+//        int[] yearLevels = new int[] { 1, 1, 3, 4, 2 };
         StudentSinglyLikedList studentLL = new StudentSinglyLikedList();
-        for (int i = 0; i < ids.Length; i++)
+//        for (int i = 0; i < ids.Length; i++)
+//        {
+//            studentLL.Append(new Student(ids[i], names[i], ages[i], courses[i], yearLevels[i]));
+//        }
+//
+//        Console.WriteLine("Printing all rows:");
+//        studentLL.Print();
+//        Console.WriteLine();
+//        Console.WriteLine("Print specific student:");
+//        int studentIdToGet = 10;
+//        StudentSinglyNode? studentLLNode = studentLL.GetId(studentIdToGet);
+//        if (studentLLNode == null)
+//        {
+//            Console.WriteLine($"student with id = {studentIdToGet} wasn't found");
+//        }
+//        else
+//        {
+//            studentLLNode.Print();
+//        }
+//
+//        Console.WriteLine();
+//        Console.WriteLine("Deleting specific student:");
+//        int studentToDelete = 15;
+//        bool stat = studentLL.RemoveId(studentToDelete);
+//        if (stat)
+//        {
+//            Console.WriteLine($"Student with id = {studentToDelete} successfuly deleted");
+//        }
+//        else
+//        {
+//            Console.WriteLine($"Couldn't find student with id = {studentToDelete}");
+//        }
+//
+//        Console.WriteLine("New student LL without the deleted student:");
+//        studentLL.Print();
+
+        string? command = null;
+        while (true)
         {
-            studentLL.Append(new Student(ids[i], names[i], ages[i], courses[i], yearLevels[i]));
+            while (command == null)
+            {
+                Console.Write("> ");
+                command = Console.ReadLine();
+            }
+
+            switch (command)
+            {
+                case "add":
+                    bool idConvErr = false;
+                    int id = 0;
+                    while (!idConvErr)
+                    {
+                        string? idStr = null;
+                        while (idStr == null)
+                        {
+                            Console.Write("ID: ");
+                            idStr = Console.ReadLine();
+                        }
+
+                        try
+                        {
+                            id = Convert.ToInt32(idStr);
+                            idConvErr = true;
+                        }
+                        catch
+                        {
+                        }
+                    }
+
+                    string? nameStr = null;
+                    while (nameStr == null)
+                    {
+                        Console.Write("Name: ");
+                        nameStr = Console.ReadLine();
+                    }
+
+                    bool ageConvErr = false;
+                    int age = 0;
+                    string? ageStr = null;
+                    while (ageStr == null)
+                    {
+                        Console.Write("Age: ");
+                        ageStr = Console.ReadLine();
+                    }
+
+                    string? courseStr = null;
+                    while (courseStr == null)
+                    {
+                        Console.Write("Course: ");
+                        courseStr = Console.ReadLine();
+                    }
+
+                    string? yearLevelStr = null;
+                    while (yearLevelStr == null)
+                    {
+                        Console.Write("Year Level: ");
+                        yearLevelStr = Console.ReadLine();
+                    }
+
+                    break;
+                case "get":
+                    Console.WriteLine("Print specific student: ");
+                    string? studentToGetStr = null;
+                    while (studentToGetStr == null)
+                    {
+                        Console.Write("Student ID to delete: ");
+                        studentToGetStr = Console.ReadLine();
+                    }
+
+                    int studentIdToGet = Convert.ToInt32(studentToGetStr);
+                    StudentSinglyNode? studentLLNode = studentLL.GetId(studentIdToGet);
+                    if (studentLLNode == null)
+                    {
+                        Console.WriteLine($"student with id = {studentIdToGet} wasn't found");
+                    }
+                    else
+                    {
+                        studentLLNode.Print();
+                    }
+
+                    break;
+                case "delete":
+                    Console.WriteLine("Deleting specific student:");
+                    string? studentToDeleteStr = null;
+                    while (studentToDeleteStr == null)
+                    {
+                        Console.WriteLine("Student ID to delete: ");
+                        studentToDeleteStr = Console.ReadLine();
+                    }
+
+                    int studentToDelete = Convert.ToInt32(studentToDeleteStr);
+                    bool stat = studentLL.RemoveId(studentToDelete);
+                    if (stat)
+                    {
+                        Console.WriteLine($"Student with id = {studentToDelete} successfuly deleted");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Couldn't find student with id = {studentToDelete}");
+                    }
+
+                    Console.WriteLine("New student LL without the deleted student:");
+                    studentLL.Print();
+                    break;
+                case "exit":
+                    goto exited;
+                default:
+                    Console.WriteLine("Unknown command");
+                    break;
+            }
         }
-        Console.WriteLine("Printing all rows:");
-        studentLL.Print();
-        Console.WriteLine();
-        Console.WriteLine("Print specific student:");
-        int studentIdToGet = 10;
-        StudentSinglyNode? studentLLNode = studentLL.GetId(studentIdToGet);
-        if (studentLLNode == null)
-        {
-            Console.WriteLine($"student with id = {studentIdToGet} wasn't found");
-        } else
-        {
-            studentLLNode.Print();
-        }
-        Console.WriteLine();
-        Console.WriteLine("Deleting specific student:");
-        int studentToDelete = 15;
-        bool stat = studentLL.RemoveId(studentToDelete);
-        if (stat)
-        {
-            Console.WriteLine($"Student with id = {studentToDelete} successfuly deleted");
-        } else
-        {
-            Console.WriteLine($"Couldn't find student with id = {studentToDelete}");
-        }
-        Console.WriteLine("New student LL without the deleted student:");
-        studentLL.Print();
+
+        exited: ;
+        Console.WriteLine("Goodbye!");
     }
 }
