@@ -1,4 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
+
 using Students;
 
 namespace _2nd_sem_test_1;
@@ -167,7 +168,7 @@ class Program
             }
         }
 
-        exited: ;
+        exited:
         Console.WriteLine("Goodbye!");
     }
 }
